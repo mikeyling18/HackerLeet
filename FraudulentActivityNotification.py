@@ -5,10 +5,8 @@ import os
 import random
 import re
 import sys
-from statistics import median
-from copy import deepcopy
 import time
-
+import bisect
 
 # Complete the activityNotifications function below.
 def activityNotifications(expenditure, d):
@@ -19,13 +17,6 @@ def activityNotifications(expenditure, d):
             median = (arr[int(d / 2) - 1] + arr[int(d / 2)]) / 2.0
         return median
 
-    def find_index(l, newTerm):
-        for i in range(len(l)):
-            if l[i] > newTerm:
-                return i
-        return len(l)
-
-    test = list()
     count = 0
     l = expenditure[0:d].copy()
     l.sort()
@@ -35,8 +26,7 @@ def activityNotifications(expenditure, d):
         if newTerm >= 2*med:
             count += 1
         l.remove(expenditure[i])
-        l.insert(find_index(l, newTerm), newTerm)
-        test.append(l)
+        l.insert(bisect.bisect(l, newTerm), newTerm)
     return count
 
 
@@ -52,3 +42,4 @@ if __name__ == '__main__':
     startTime = time.time()
     print(activityNotifications(expenditure, d))
     print(time.time() - startTime)
+
