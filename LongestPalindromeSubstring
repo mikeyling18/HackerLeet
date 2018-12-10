@@ -1,0 +1,32 @@
+class Solution(object):
+    
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        def checkPal(s, left, right):
+            str =''
+            while left >= 0 and right < len(s):
+                if s[left] == s[right]:
+                    str = s[left:right+1]
+                    left -= 1
+                    right += 1
+                else: 
+                    break
+            return str
+    
+        maxPal = ''
+        if len(s) == 0:
+            return ''
+        elif len(s) == 1:
+            return s
+        else:
+            for i in range(len(s)-1):
+                even = checkPal(s, i, i+1)
+                odd = checkPal(s, i, i)
+                if len(even) >= len(maxPal):
+                    maxPal = even
+                if len(odd) >= len(maxPal):
+                    maxPal = odd
+        return maxPal
