@@ -4,6 +4,7 @@ class Solution:
         :type num: int
         :rtype: str
         """
+        
         i = 1
         str = ''
         
